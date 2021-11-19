@@ -12,12 +12,13 @@ source:
 
 build:
   number: 0
+  skip: True  # [py<36]
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
-    # Cannot use flit-core >3.3.0 due to cyclic dependency
+    # Cannot use flit-core >3.3.0 due to cyclic dependency 
     - flit-core 3.3.0
     - pip
     - python
