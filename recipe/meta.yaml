@@ -32,11 +32,6 @@ test:
     - pip
   commands:
     - pip check
-  downstreams:
-    - flit
-    - pep517
-    - pytest
-    - setuptools_scm
 
 about:
   home: https://github.com/hukkin/tomli
