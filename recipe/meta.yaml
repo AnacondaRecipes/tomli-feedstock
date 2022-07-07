@@ -1,19 +1,17 @@
 {% set name = "tomli" %}
-{% set version = "1.2.2" %}
-
+{% set version = "2.0.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-    url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/tomli-{{ version }}.tar.gz
-    sha256: c6ce0015eb38820eaf32b5db832dbc26deb3dd427bd5f6556cf0acac2c214fee
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f
 
 build:
   number: 0
-  skip: True  # [py<36]
-  noarch: python
+  skip: True  # [py<37]
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -23,16 +21,17 @@ requirements:
     - pip
     - python
   run:
-    - python >=3.6
+    - python
 
 test:
   imports:
     - tomli
-  commands:
-    - pip check
+  files:
+    - example.toml
   requires:
     - pip
-    - python <3.10
+  commands:
+    - pip check
 
 about:
   home: https://github.com/hukkin/tomli
