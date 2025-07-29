@@ -1,5 +1,5 @@
 {% set name = "tomli" %}
-{% set version = "2.0.1" %}
+{% set version = "2.2.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f
+  sha256: cd45e1dc79c835ce60f7404ec8119f2eb06d38b1deba146f07ced3bbc44505ff
 
 build:
-  number: 1
-  skip: True  # [py<37]
+  number: 0
+  skip: True  # [py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
@@ -31,10 +31,12 @@ test:
     - pip
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
 
 about:
   home: https://github.com/hukkin/tomli
   summary: A simple TOML parser
+  description: Tomli is a Python library for parsing TOML. It is fully compatible with TOML v1.0.0.
   license: MIT
   license_family: MIT
   license_file: LICENSE
