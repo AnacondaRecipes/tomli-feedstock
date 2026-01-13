@@ -1,37 +1,39 @@
 {% set name = "tomli" %}
-{% set version = "2.2.1" %}
+{% set version = "2.4.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: cd45e1dc79c835ce60f7404ec8119f2eb06d38b1deba146f07ced3bbc44505ff
+  url: https://github.com/hukkin/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
+  sha256: 6d9e3a3f690db54a42eb9e98591ec5e9731779d3650c39668a220982f587a699
 
 build:
   number: 0
-  skip: True  # [py<38]
+  skip: true  # [py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
-    - flit-core >=3.2.0,<4
+    - flit-core >=3.12,<4
     - pip
     - python
   run:
     - python
 
 test:
+  source_files:
+    - tests
   imports:
     - tomli
-  files:
-    - example.toml
   requires:
     - pip
+    - pytest
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests
 
 about:
   home: https://github.com/hukkin/tomli
