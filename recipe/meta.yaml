@@ -1,13 +1,13 @@
 {% set name = "tomli" %}
-{% set version = "2.4.1" %}
+{% set version = "2.5.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://github.com/hukkin/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
-  sha256: 953f60a060852179253efb5d56cd02d0a0ef8b73e560c71e60b609e034b946f7
+  sha256: 8d4b735554696bf2b7e3d4505e069f6750b80e4c035fe5f1566f2a241d34dcc3
 
 build:
   number: 0
@@ -33,7 +33,7 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - pytest -v tests
+    - pytest -vv tests
 
 about:
   home: https://github.com/hukkin/tomli
